@@ -1,0 +1,46 @@
+ASSUME DS:DATA
+ASSUME CS:CODE
+
+DATA SEGMENT
+NAME DB "AMMAAR$"
+MSG 10 DUP('$')
+DATA ENDS
+
+CODE SEGMENT
+START:
+    MOV AX, DATA
+    MOV DS, AX
+
+    LEA SI, NAME      
+    MOV CX, 0
+
+COUNT:
+    MOV AL, [SI]
+    CMP AL, '$'
+    JE CONTINUE
+    INC SI
+    INC CX
+    JMP COUNT
+
+CONTINUE:
+    DEC SI             
+    LEA DI, MSG         
+
+REVERSE:
+    MOV AL, [SI]
+    MOV [DI], AL
+    DEC SI
+    INC DI
+    LOOP REVERSE
+
+    MOV BYTE PTR [DI], '$' 
+
+    MOV AH, 09H
+    LEA DX, MSG
+    INT 21H
+
+    MOV AH, 4CH
+    INT 21H
+
+CODE ENDS
+END START
