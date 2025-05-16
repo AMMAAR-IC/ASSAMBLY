@@ -1,0 +1,61 @@
+ASSUME DS:DATA
+ASSUME CS:CODE
+
+DATA SEGMENT
+NAME1 DB "AMMAAR $"
+NAME2 DB "UMAR $"
+NAME3 DB "ALI $"
+MSG   DB 30 DUP('$')  ; Ensure all empty slots filled with '$'
+DATA ENDS
+
+CODE SEGMENT
+START:
+    MOV AX, DATA
+    MOV DS, AX
+
+    LEA DI, MSG   
+
+    LEA SI, NAME1
+COPY1:
+    MOV AL, [SI]
+    CMP AL, '$'
+    JE NEXT1
+    MOV [DI], AL
+    INC SI
+    INC DI
+    JMP COPY1
+
+NEXT1:
+    LEA SI, NAME2
+COPY2:
+    MOV AL, [SI]
+    CMP AL, '$'
+    JE NEXT2
+    MOV [DI], AL
+    INC SI
+    INC DI
+    JMP COPY2
+
+NEXT2:
+    LEA SI, NAME3
+COPY3:
+    MOV AL, [SI]
+    CMP AL, '$'
+    JE DONE
+    MOV [DI], AL
+    INC SI
+    INC DI
+    JMP COPY3
+
+DONE:
+    MOV BYTE PTR [DI], '$' 
+
+    MOV AH, 09H
+    LEA DX, MSG
+    INT 21H
+
+    MOV AH, 4CH
+    INT 21H
+
+CODE ENDS
+END START
