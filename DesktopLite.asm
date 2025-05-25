@@ -8,7 +8,7 @@ menu db 13,10,"--- Arduino UNO Basic Desktop ---",13,10
 
 msg1 db 13,10,"Hello! Welcome to Arduino Desktop!",13,10,"$"
 msg2 db 13,10,"Time: 12:34:56 (Fake)",13,10,"$"
-exitmsg db 13,10,"Exiting...$"
+exitmsg db 13,10,"Exiting...$" 
 
 .code
 main:
