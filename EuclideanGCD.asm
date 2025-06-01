@@ -1,6 +1,6 @@
 .model small
 .stack 100h
-
+ 
 .data
     a dw 48
     b dw 18
